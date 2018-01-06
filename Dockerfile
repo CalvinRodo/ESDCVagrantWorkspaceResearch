@@ -11,9 +11,9 @@ RUN yum -y install sudo
 RUN sudo yum -y install epel-release
 RUN curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
 RUN sudo yum -y install nodejs
-RUN sudo npm install -g ionic
 RUN sudo yum -y install openssh-server passwd; yum clean all
 
+RUN sudo npm install -g cordova ionic
 
 #Start SSH
 ADD ./start.sh ./start.sh
