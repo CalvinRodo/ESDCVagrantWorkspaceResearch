@@ -11,10 +11,11 @@ RUN yum -y install sudo
 RUN sudo yum -y install epel-release
 RUN curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
 RUN sudo yum -y install nodejs
-RUN sudo yum -y install git
 RUN sudo npm install -g ionic
 RUN sudo yum -y install openssh-server passwd; yum clean all
 
+
+#Start SSH
 ADD ./start.sh ./start.sh
 RUN mkdir /var/run/sshd
 
@@ -25,7 +26,5 @@ RUN chmod 755 /start.sh
 EXPOSE 22
 RUN ./start.sh
 
-#get project from source code repo
-RUN git clone https://github.com/CalvinRodo/ESDCVagrantIonicResearch
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
