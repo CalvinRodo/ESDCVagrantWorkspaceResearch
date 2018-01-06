@@ -9,10 +9,17 @@ Vagrant.configure(2) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+
+	config.vm.network "forwarded_port", guest: 22, host: 2222, host_ip: "127.0.0.1", id: 'ssh'
+  config.ssh.port = 22
+  config.ssh.password = "newpass"
+
   config.vm.provider "docker" do |d|
     d.build_dir = "."
+    d.has_ssh = true
+    d.remains_running = true
+    
   end 
-  config.ssh.port = "22"
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
 
