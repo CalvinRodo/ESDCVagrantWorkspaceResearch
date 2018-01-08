@@ -12,6 +12,8 @@ Vagrant.configure(2) do |config|
   
   config.ssh.port = 22
   config.ssh.password = "newpass"
+  config.ssh.insert_key ="true"
+
   config.vm.network "forwarded_port", guest: 22, host: 2222, host_ip: "127.0.0.1", id: 'ssh'
 
   config.vm.provider "docker" do |d|

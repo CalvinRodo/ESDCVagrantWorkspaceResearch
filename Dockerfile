@@ -26,5 +26,6 @@ RUN chmod 755 /start.sh
 EXPOSE 22
 RUN ./start.sh
 
+RUN sudo usermod -aG wheel vagrant
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
