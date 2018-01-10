@@ -7,13 +7,11 @@ RUN yum -y update; yum clean all
 
 
 #Install tools
-RUN yum -y install sudo
-RUN sudo yum -y install epel-release
-RUN curl --silent --location https://rpm.nodesource.com/setup_9.x | sudo bash -
-RUN sudo yum -y install nodejs
-RUN sudo yum -y install openssh-server passwd; yum clean all
-
-RUN sudo npm install -g cordova ionic
+RUN yum -y install epel-release
+RUN curl --silent --location https://rpm.nodesource.com/setup_9.x | bash -
+RUN yum -y install nodejs
+RUN yum -y install openssh-server passwd; yum clean all
+RUN yum -y install sudo; yum clean all;
 
 #Start SSH
 ADD ./start.sh ./start.sh
@@ -26,6 +24,9 @@ RUN chmod 755 /start.sh
 EXPOSE 22
 RUN ./start.sh
 
-RUN sudo usermod -aG wheel vagrant
+RUN usermod -aG wheel vagrant
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+
+#add wheel group to sudoers file
+RUN echo '%wheel         ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
